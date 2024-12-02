@@ -1,23 +1,32 @@
- function Game() {
- const choice1 = prompt("player1, choice number: ").toLowerCase();
- const choice2 = prompt("player2, choice number: ").toLowerCase();
+// Example function that plays a single round
+function playRound(playerSelection) {
+   const choices = ["rock", "paper", "scissors"];
+   const computerSelection = choices[Math.floor(Math.random() * choices.length)];
+   const resultsDiv = document.getElementById("results");
 
- console.log("player1 choice: ", choice1);
- console.log("player2 choice:", choice2);
+   // Determine the result
+   let resultMessage;
+   if (playerSelection === computerSelection) {
+       resultMessage = "It's a tie!";
+   } else if (
+       (playerSelection === "rock" && computerSelection === "scissors") ||
+       (playerSelection === "paper" && computerSelection === "rock") ||
+       (playerSelection === "scissors" && computerSelection === "paper")
+   ) {
+       resultMessage = "You win!";
+   } else {
+       resultMessage = "You lose!";
+   }
 
- if(choice1 === "rock" && choice2 === "paper") {
-    console.log("player2 win");
- } else if(choice1 === "paper" && choice2 === "rock") {
-    console.log("player1 win");
- } else if(choice1 === "scissors" && choice2 === "rock") {
-    console.log("player2 win");
- } else if(choice1 === "rock" && choice2 === "scissors") {
-    console.log("player1 win");
- } else if(choice1 === "paper" && choice2 === "scissors") {
-    console.log("player2 win");
- } else if(choice1 === "scissors" && choice2 === "paper") {
-    console.log("player1 win");
- } else { console.log("no win");}
- }
+   // Update the results div with the results
+   resultsDiv.innerHTML = `
+       <p><strong>Player:</strong> ${playerSelection}</p>
+       <p><strong>Computer:</strong> ${computerSelection}</p>
+       <p><strong>Result:</strong> ${resultMessage}</p>
+   `;
+}
 
- Game();
+// Adding event listeners to buttons
+document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
